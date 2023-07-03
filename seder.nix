@@ -2,6 +2,6 @@ pkgs:
 with pkgs;
 writeShellApplication {
   name = "seder";
-  runtimeInputs = with pkgs; [ pdftk ];
+  runtimeInputs = [ pdftk ];
   text = builtins.readFile ./seder.sh;
 }
