@@ -18,6 +18,6 @@
         inherit seder;
         default = seder;
       };
-      overlays.default = final: prev: { final.seder = seder; };
+      overlays.default = final: prev: { inherit seder; };
     };
 }
