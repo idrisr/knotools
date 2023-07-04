@@ -6,6 +6,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         overlays = with self.overlays; [
+          awscost
           booknote
           dimensions
           epubthumb
@@ -27,6 +28,7 @@
         };
     in {
       apps.${system} = with pkgs; {
+        awscost = mkApp awscost;
         booknote = mkApp booknote;
         dimensions = mkApp dimensions;
         epubthumb = mkApp epubthumb;
@@ -38,6 +40,7 @@
         transcribe = mkApp transcribe;
       };
       overlays = {
+        awscost = import ./awscost.nix;
         booknote = import ./booknote.nix;
         dimensions = import ./dimensions.nix;
         epubthumb = import ./epubthumb.nix;
