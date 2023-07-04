@@ -40,16 +40,16 @@
         transcribe = mkApp transcribe;
       };
       overlays = {
-        awscost = import ./awscost.nix;
-        booknote = import ./booknote.nix;
-        dimensions = import ./dimensions.nix;
-        epubthumb = import ./epubthumb.nix;
-        mdtopdf = import ./mdtopdf.nix;
-        newcover = import ./newcover.nix;
-        pdftc = import ./pdftc.nix;
-        roamamer = import ./roamamer.nix;
-        seder = import ./seder.nix;
-        transcribe = import ./transcribe.nix;
+        awscost = import ./packages/awscost.nix;
+        booknote = import ./packages/booknote.nix;
+        dimensions = import ./packages/dimensions.nix;
+        epubthumb = import ./packages/epubthumb.nix;
+        mdtopdf = import ./packages/mdtopdf.nix;
+        newcover = import ./packages/newcover.nix;
+        pdftc = import ./packages/pdftc.nix;
+        roamamer = import ./packages/roamamer.nix;
+        seder = import ./packages/seder.nix;
+        transcribe = import ./packages/transcribe.nix;
       };
     };
 }
