@@ -12,13 +12,11 @@
           text = builtins.readFile ./seder.sh;
         };
     in {
-      apps.${system} = {
-        seder = {
-          type = "app";
-          program = "${seder}/bin/seder";
-        };
-        default = seder;
+      apps.${system}.default = {
+        program = "${seder}/bin/seder";
+        type = "app";
       };
+
       packages.${system} = {
         inherit seder;
         default = seder;
