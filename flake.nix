@@ -5,15 +5,15 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
-        overlays = [
-          self.overlays.booknote
-          self.overlays.dimensions
-          self.overlays.mdtopdf
-          self.overlays.newcover
-          self.overlays.pdftc
-          self.overlays.roamamer
-          self.overlays.seder
-          self.overlays.transcribe
+        overlays = with self.overlays; [
+          booknote
+          dimensions
+          mdtopdf
+          newcover
+          pdftc
+          roamamer
+          seder
+          transcribe
         ];
         system = system;
         config = { allowUnfree = true; };
