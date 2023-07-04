@@ -21,6 +21,9 @@
         inherit seder;
         default = seder;
       };
-      overlays = { seder = final: prev: { inherit seder; }; };
+      overlays = {
+        seder = final: prev: { inherit seder; };
+        roamamer = import ./roamamer.nix;
+      };
     };
 }
