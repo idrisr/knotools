@@ -15,7 +15,7 @@
           seder
           transcribe
         ];
-        system = system;
+        inherit system;
         config = { allowUnfree = true; };
       };
     in {
