@@ -8,6 +8,7 @@
         overlays = with self.overlays; [
           booknote
           dimensions
+          epubthumb
           mdtopdf
           newcover
           pdftc
@@ -24,11 +25,11 @@
           type = "app";
           program = "${p}/bin/${name}";
         };
-
     in {
       apps.${system} = with pkgs; {
         booknote = mkApp booknote;
         dimensions = mkApp dimensions;
+        epubthumb = mkApp epubthumb;
         mdtopdf = mkApp mdtopdf;
         newcover = mkApp newcover;
         pdftc = mkApp pdftc;
@@ -39,6 +40,7 @@
       overlays = {
         booknote = import ./booknote.nix;
         dimensions = import ./dimensions.nix;
+        epubthumb = import ./epubthumb.nix;
         mdtopdf = import ./mdtopdf.nix;
         newcover = import ./newcover.nix;
         pdftc = import ./pdftc.nix;
