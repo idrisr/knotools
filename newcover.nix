@@ -1,8 +1,8 @@
 final: prev: {
-  newcover = final.writeShellApplication {
+  newcover = prev.writeShellApplication {
     name = "newcover";
 
-    runtimeInputs = with final; [ wget dimensions pdftk imagemagick ];
+    runtimeInputs = with prev; [ wget dimensions pdftk imagemagick ];
     text = builtins.readFile ./newcover.sh;
   };
 }

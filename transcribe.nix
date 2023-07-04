@@ -1,7 +1,7 @@
 final: prev: {
-  transcribe = final.writeShellApplication {
+  transcribe = prev.writeShellApplication {
     name = "transcribe";
-    runtimeInputs = with final; [ tesseract5 poppler_utils ];
+    runtimeInputs = with prev; [ tesseract5 poppler_utils ];
     text = builtins.readFile ./transcribe.sh;
   };
 }

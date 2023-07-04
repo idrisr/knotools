@@ -1,8 +1,8 @@
 final: prev: {
-  roamamer = final.writeShellApplication {
+  roamamer = prev.writeShellApplication {
     name = "roamamer";
 
-    runtimeInputs = with final; [ git ];
+    runtimeInputs = with prev; [ git ];
     text = builtins.readFile ./roamamer.sh;
   };
 }

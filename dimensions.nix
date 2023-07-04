@@ -1,8 +1,8 @@
 final: prev: {
-  dimensions = final.writeShellApplication {
+  dimensions = prev.writeShellApplication {
     name = "dimensions";
 
-    runtimeInputs = with final; [ pdftk ripgrep ];
+    runtimeInputs = with prev; [ pdftk ripgrep ];
     text = builtins.readFile ./dimensions.sh;
   };
 }
