@@ -18,40 +18,23 @@
         inherit system;
         config = { allowUnfree = true; };
       };
+      mkApp = p:
+        let name = pkgs.lib.getName p;
+        in {
+          type = "app";
+          program = "${p}/bin/${name}";
+        };
+
     in {
       apps.${system} = with pkgs; {
-        booknote = {
-          type = "app";
-          program = "${booknote}/bin/booknote";
-        };
-        dimensions = {
-          type = "app";
-          program = "${dimensions}/bin/dimensions";
-        };
-        mdtopdf = {
-          type = "app";
-          program = "${mdtopdf}/bin/mdtopdf";
-        };
-        newcover = {
-          type = "app";
-          program = "${newcover}/bin/newcover";
-        };
-        pdftc = {
-          type = "app";
-          program = "${pdftc}/bin/pdftc";
-        };
-        roamamer = {
-          type = "app";
-          program = "${roamamer}/bin/roamamer";
-        };
-        seder = {
-          type = "app";
-          program = "${seder}/bin/seder";
-        };
-        transcribe = {
-          type = "app";
-          program = "${transcribe}/bin/transcribe";
-        };
+        booknote = mkApp booknote;
+        dimensions = mkApp dimensions;
+        mdtopdf = mkApp mdtopdf;
+        newcover = mkApp newcover;
+        pdftc = mkApp pdftc;
+        roamamer = mkApp roamamer;
+        seder = mkApp seder;
+        transcribe = mkApp transcribe;
       };
       overlays = {
         booknote = import ./booknote.nix;
