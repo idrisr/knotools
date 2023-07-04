@@ -1,8 +1,7 @@
 final: prev: {
-  seder = with pkgs;
-    writeShellApplication {
-      name = "seder";
-      runtimeInputs = [ pdftk ];
-      text = builtins.readFile ./seder.sh;
-    };
+  seder = final.writeShellApplication {
+    name = "seder";
+    runtimeInputs = [ pdftk ];
+    text = builtins.readFile ./seder.sh;
+  };
 }
