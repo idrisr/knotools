@@ -5,7 +5,12 @@
     let
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs { system = system; };
-      seder = import ./seder.nix pkgs;
+      seder = with pkgs;
+        writeShellApplication {
+          name = "seder";
+          runtimeInputs = [ pdftk ];
+          text = builtins.readFile ./seder.sh;
+        };
     in {
       apps.${system} = {
         seder = {
