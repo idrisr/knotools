@@ -20,9 +20,10 @@ if ! dims=$(dimensions "$1" | head -n1) ; then
     exit 1
 fi
 
-width=$(echo "$dims" | awk '{print $2}')
-height=$(echo "$dims" | awk '{print $3}')
-filepath=${1%.*}
+width=$(echo "$dims" | awk '{print $1}')
+height=$(echo "$dims" | awk '{print $2}')
+input=$(realpath "$1")
+filepath=${input%.*}
 filename=${filepath##*/}
 
 cover=cover.jpg
@@ -33,7 +34,11 @@ if ! wget "$2" --output-document="$cover"; then
 fi
 
 # todo: doesnt handle crop rects properly
-    # when there's a crop rect the cover is too large
-convert "$cover" -resize "${width%.*}x${height%.*}!" cover.pdf
-pdftk cover.pdf "$OLDPWD/$1" output "$OLDPWD/$filename-new.pdf"
+# when there's a crop rect the cover is too large
+
+# see linux assembly language step by step for example of pdf that this script
+# does not work for
+
+convert "$cover" -resize "${width}x${height}!" cover.pdf
+pdftk cover.pdf "$input" output "$OLDPWD/$filename-new.pdf"
 rm $cover

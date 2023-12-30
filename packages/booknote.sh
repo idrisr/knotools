@@ -23,3 +23,7 @@ fi
 filepath=${1%.*}
 filename=${filepath##*/}
 pdftc "$1" >> "$2/${filename//-/ }.md"
+
+# todo: should read a config file for default file location
+# so i dont have to input the destination directory each time
+# reader monad!
