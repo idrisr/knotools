@@ -64,7 +64,7 @@
         booknote = import ./packages/booknote.nix;
         epubthumb = import ./packages/epubthumb.nix;
         mdtopdf = import ./packages/mdtopdf.nix;
-        newcover = import ./packages/newcover2.nix newcover2;
+        newcover = import ./packages/newcover.nix newcover2;
         pdftc = import ./packages/pdftc.nix;
         roamamer = import ./packages/roamamer.nix;
         seder = import ./packages/seder.nix;
