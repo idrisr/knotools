@@ -3,6 +3,7 @@ module Main (main) where
 import Test.Tasty
 import TestParser
 import TestCommand
+import TestOutputFileName
 
 tests :: TestTree
 tests =
@@ -10,6 +11,7 @@ tests =
         "main"
         [ testParse
         , testCommand
+        , testOutputFileName
         ]
 
 main :: IO ()

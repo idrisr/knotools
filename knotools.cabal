@@ -47,6 +47,7 @@ test-suite tests
         TestCommand
         TestData
         TestParser
+        TestOutputFileName
     build-depends:
         base ^>=4.17.2.1
         , attoparsec

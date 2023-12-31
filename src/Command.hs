@@ -13,6 +13,9 @@ import Parser
 import System.FilePath
 import System.IO.Streams.Attoparsec.ByteString qualified as SP
 
+class ToCommand a where
+    command :: a -> [String]
+
 wgetCmd :: Params -> FilePath -> [String]
 wgetCmd p f =
     [ "wget"
@@ -40,8 +43,17 @@ pdftkCmd p f =
     , p ^. input
     , "cat"
     , "output"
-    , replaceExtension (p ^. output) "pdf"
+    , replaceExtension (outFile p (p ^. output)) "pdf"
     ]
+
+-- todo: fixme. dont pass in params and an elem from params
+-- maybe use derived lens
+outFile :: Params -> OutputFile -> FilePath
+outFile _ (OutputFile f) = f
+outFile p AppendInput = newFileName (p^.input) "new"
+
+newFileName :: FilePath -> String -> FilePath
+newFileName f e = takeBaseName f <.> e <.> takeExtension f
 
 makeWH :: Num a => PageMedia a -> (a, a)
 makeWH p =

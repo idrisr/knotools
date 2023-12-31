@@ -8,8 +8,11 @@ import Lens.Micro.Platform
 data Params = Params
     { _input :: FilePath
     , _url :: String
-    , _output:: FilePath
+    , _output:: OutputFile
     }
+    deriving (Show)
+
+data OutputFile = OutputFile FilePath | AppendInput
     deriving (Show)
 
 makeLenses ''Params
@@ -22,6 +25,33 @@ cmdLineParser = execParser opts
 parseParams :: Parser Params
 parseParams =
     Params
-        <$> strArgument (metavar "<INPUT>" <> help "pdf file for processing")
-        <*> strOption (metavar "<URL>" <> short 'u' <> long "url" <> help "url for new cover")
-        <*> strOption (metavar "<OUTPUT>" <> short 'o' <> long "output" <> help "output file for new pdf")
+        <$> strArgument
+            ( metavar "<INPUT>"
+                <> help "pdf file for processing"
+            )
+        <*> strOption
+            ( metavar "<URL>"
+                <> short 'u'
+                <> long "url"
+                <> help "url for new cover"
+            )
+        <*> (fileOutput <|> defaultOutput)
+
+fileOutput :: Parser OutputFile
+fileOutput =
+    OutputFile
+        <$> strOption
+            ( metavar "<OUTPUT>"
+                <> short 'o'
+                <> long "output"
+                <> help "output file for new pdf"
+            )
+
+defaultOutput :: Parser OutputFile
+defaultOutput =
+    flag'
+        AppendInput
+        ( long "append"
+            <> short 'a'
+            <> help "use input file name as basis for output file name"
+        )
