@@ -11,6 +11,12 @@ note taking system such as roam, notion, or plain text files
 
 ![pdftc sample run](https://github.com/idrisr/knotools/blob/main/gifs/pdftc.gif)
 
+To try it out for a test run:
+
+```
+nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:idrisr/knotools#pdftc <book.pdf>
+```
+
 ### seder
 remove a particular string from a pdf file. Useful for removing text watermarks.
 

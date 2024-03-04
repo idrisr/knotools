@@ -6,7 +6,13 @@
       system = flake-utils.lib.system.x86_64-linux;
       compiler = "ghc948";
       hPkgs = pkgs.haskell.packages."${compiler}";
-      devTools = with pkgs; [ zlib cabal2nix imagemagick ];
+      devTools = with pkgs; [
+        zlib
+        cabal2nix
+        imagemagick
+        asciinema-agg
+        asciinema
+      ];
 
       haskDevTools = with hPkgs; [
         ghc
@@ -44,8 +50,6 @@
           type = "app";
           program = "${p}/bin/${name}";
         };
-      # put in wrapper
-      # imagemagick pdftk wget
       newcover2 = with pkgs; haskell.packages.${compiler}.callPackage ./. { };
     in {
       apps.${system} = with pkgs; {
