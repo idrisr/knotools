@@ -9,6 +9,8 @@ representation of my books, even as command line troll.
 create a table of contents from a pdf file. Useful for inclusion in a
 note taking system such as roam, notion, or plain text files
 
+![pdftc sample run](https://github.com/idrisr/knotools/blob/main/gifs/pdftc.gif)
+
 ### seder
 remove a particular string from a pdf file. Useful for removing text watermarks.
 
