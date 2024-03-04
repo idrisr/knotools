@@ -11,7 +11,7 @@ note taking system such as roam, notion, or plain text files
 
 ![pdftc sample run](https://github.com/idrisr/knotools/blob/main/gifs/pdftc.gif)
 
-To try it out for a test run:
+To try it out after you have nix installed:
 
 ```
 nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:idrisr/knotools#pdftc <book.pdf>
