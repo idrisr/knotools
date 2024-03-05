@@ -1,6 +1,7 @@
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/23.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+
   outputs = { nixpkgs, self, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
@@ -23,27 +24,23 @@
           implicit-hie
           retrie
           cabal-install
-          pkgs.zlib
-          pkgs.cabal2nix
         ];
 
         tools = devTools ++ haskDevTools;
 
         pkgs = import nixpkgs {
-          overlays = with self.overlays;
-            [
-              # awscost
-              # booknote
-              # epubthumb
-              # mdtopdf
-              # pdftc
-              # roamamer
-              # seder
-              # transcribe
-            ];
           inherit system;
           config = { allowUnfree = true; };
         };
+
+        pdftc = pkgs.callPackage ./packages/pdftc.nix { };
+        awscost = pkgs.callPackage ./packages/awscost.nix { };
+        booknote = pkgs.callPackage ./packages/booknote.nix { inherit pdftc; };
+        epubthumb = pkgs.callPackage ./packages/epubthumb.nix { };
+        mdtopdf = pkgs.callPackage ./packages/mdtopdf.nix { };
+        roamamer = pkgs.callPackage ./packages/roamamer.nix { };
+        seder = pkgs.callPackage ./packages/seder.nix { };
+        transcribe = pkgs.callPackage ./packages/transcribe.nix { };
 
         mkApp = p:
           let name = pkgs.lib.getName p;
@@ -52,8 +49,9 @@
             program = "${p}/bin/${name}";
           };
         newcover2 = with pkgs; haskell.packages.${compiler}.callPackage ./. { };
+
       in {
-        apps = with pkgs; {
+        apps = {
           awscost = mkApp awscost;
           booknote = mkApp booknote;
           epubthumb = mkApp epubthumb;
@@ -62,18 +60,6 @@
           roamamer = mkApp roamamer;
           seder = mkApp seder;
           transcribe = mkApp transcribe;
-        };
-
-        overlays = {
-          awscost = import ./packages/awscost.nix;
-          booknote = import ./packages/booknote.nix;
-          epubthumb = import ./packages/epubthumb.nix;
-          mdtopdf = import ./packages/mdtopdf.nix;
-          newcover = import ./packages/newcover.nix newcover2;
-          pdftc = import ./packages/pdftc.nix;
-          roamamer = import ./packages/roamamer.nix;
-          seder = import ./packages/seder.nix;
-          transcribe = import ./packages/transcribe.nix;
         };
 
         devShells.default = pkgs.mkShell {

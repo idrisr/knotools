@@ -1,6 +1,6 @@
-final: prev: {
-  pdftc = prev.writeShellApplication {
-    name = "pdftc";
-    text = builtins.readFile ./pdftc.sh;
-  };
+{ writeShellApplication, pdftk, ripgrep, gnused }:
+writeShellApplication {
+  runtimeInputs = [ pdftk ripgrep gnused ];
+  name = "pdftc";
+  text = builtins.readFile ./pdftc.sh;
 }

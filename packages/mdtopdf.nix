@@ -1,7 +1,6 @@
-final: prev: {
-  mdtopdf = prev.writeShellApplication {
-    name = "mdtopdf";
-    runtimeInputs = with prev; [ pandoc texlive.combined.scheme-full ];
-    text = builtins.readFile ./mdtopdf.sh;
-  };
+{ writeShellApplication, pandoc, texlive }:
+writeShellApplication {
+  name = "mdtopdf";
+  runtimeInputs = [ pandoc texlive.combined.scheme-full ];
+  text = builtins.readFile ./mdtopdf.sh;
 }
