@@ -6,6 +6,7 @@ writeShellApplication {
   text = ''
     set -e
     set -u
+    set -x
 
     usage() {
         echo "$0 <pdf file>"
@@ -21,8 +22,8 @@ writeShellApplication {
         exit 1
     fi
 
-    "${pdftk}/bin/pdftk" "$1" dump_data_utf8 |\
-    "${ripgrep}/bin/rg" --text bookmark'(title|level)'  |\
+    ${pdftk}/bin/pdftk "$1" dump_data_utf8 |\
+    ${ripgrep}/bin/rg --text bookmark'(title|level)'  |\
     ${gnused}/bin/sed '$!N;s/^\([^\n]*\)\n\([^\n]*\)$/\2 \1/'|\
     ${gnused}/bin/sed -r -e 's/BookmarkLevel: //'            \
     -e 's/BookmarkTitle: //'                                 \
