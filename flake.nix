@@ -67,6 +67,9 @@
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath tools;
         };
 
-        packages.default = newcover2;
+        packages = {
+          default = newcover2;
+          inherit pdftc;
+        };
       });
 }
