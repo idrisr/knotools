@@ -23,7 +23,7 @@ writeShellApplication {
     fi
 
     ${pdftk}/bin/pdftk "$1" dump_data_utf8 |\
-    ${ripgrep}/bin/rg --text bookmark'(title|level)'  |\
+    ${ripgrep}/bin/rg --no-config --smart-case --text bookmark'(title|level)'  |\
     ${gnused}/bin/sed '$!N;s/^\([^\n]*\)\n\([^\n]*\)$/\2 \1/'|\
     ${gnused}/bin/sed -r -e 's/BookmarkLevel: //'            \
     -e 's/BookmarkTitle: //'                                 \
