@@ -6,7 +6,6 @@ writeShellApplication {
   text = ''
     set -e
     set -u
-    set -x
 
     usage() {
         echo "$0 <pdf file>"
