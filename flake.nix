@@ -71,5 +71,6 @@
           default = newcover2;
           inherit pdftc;
         };
+        overlays = import ./overlay.nix;
       });
 }
