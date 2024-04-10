@@ -13,6 +13,11 @@ import System.IO
 import Command
 import Data.ByteString (ByteString)
 
+-- TODO
+-- remove bag pages
+-- remove current cover
+-- option to put newfile in CWD or in same dir as input file
+
 runCommand :: [String] -> IO
         ( S.OutputStream ByteString
         , S.InputStream ByteString
