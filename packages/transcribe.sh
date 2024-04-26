@@ -2,8 +2,8 @@ set -e
 set -u
 
 usage() {
-  echo "usage: $0 <transcribe-me.pdf> <start page> <end page>"
-  exit 1
+    echo "usage: $0 <transcribe-me.pdf> <start page> <end page>"
+    exit 1
 }
 
 check_integer() {

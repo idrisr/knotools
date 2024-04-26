@@ -2,12 +2,12 @@ set -e
 set -u
 
 usage() {
-  echo "usage: $0 <my-file.md>"
-  exit 1
+    echo "usage: $0 <my-file.md>"
+    exit 1
 }
 
 if [[ "$#" != 1 ]]; then
-  usage
+    usage
 fi
 
 filepath=${1%.*}

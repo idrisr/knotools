@@ -1,4 +1,7 @@
 result
 dist-newstyle/
 .direnv
+.devenv*
+devenv.lock
+.pre-commit-config.yaml
 *pdf
