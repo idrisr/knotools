@@ -55,6 +55,9 @@
       } // outputSet pkgs;
 
       packages.${system} = outputSet pkgs;
-      overlays.all = _: prev: outputSet prev // pipe-rename;
+      overlays = {
+        all = _: prev: outputSet prev;
+        inherit pipe-rename;
+      };
     };
 }
