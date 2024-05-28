@@ -19,7 +19,7 @@
       pipe-rename = final: prev: {
         final.pipe-rename = with prev;
           stdenvNoCC.mkDerivation {
-            name = "pipe-renamer";
+            name = "pipe-rename";
             dontUnpack = true;
             nativeBuildInputs = [ makeWrapper neovim pipe-rename ];
             installPhase = ''
