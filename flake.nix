@@ -16,6 +16,20 @@
         beautysh.enable = true;
       };
 
+      pipe-rename = final: prev: {
+        final.pipe-rename = with prev;
+          stdenvNoCC.mkDerivation {
+            name = "pipe-renamer";
+            dontUnpack = true;
+            nativeBuildInputs = [ makeWrapper neovim pipe-rename ];
+            installPhase = ''
+              mkdir -p "$out/bin"
+              cp ${pipe-rename}/bin/renamer $out/bin/renamer
+              wrapProgram $out/bin/renamer --add-flags "--editor=neovim --clean"
+            '';
+          };
+      };
+
       outputSet = pkgs:
         with pkgs; rec {
           awscost = callPackage ./packages/awscost.nix { };
@@ -23,7 +37,6 @@
           mdtopdf = callPackage ./packages/mdtopdf.nix { };
           newcover = haskell.packages.ghc948.callCabal2nix "" ./newcover { };
           pdftc = callPackage ./packages/pdftc.nix { };
-          pipe-rename = callPackage ./packages/renamer.nix { };
           seder = callPackage ./packages/seder.nix { };
           transcribe = callPackage ./packages/transcribe.nix { };
         };
@@ -42,6 +55,6 @@
       } // outputSet pkgs;
 
       packages.${system} = outputSet pkgs;
-      overlays.all = _: prev: outputSet prev;
+      overlays.all = _: prev: outputSet prev // pipe-rename;
     };
 }
