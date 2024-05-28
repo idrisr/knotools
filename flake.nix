@@ -22,7 +22,7 @@
             name = "pipe-rename";
             pname = "pipe-rename";
             dontUnpack = true;
-            nativeBuildInputs = [ makeWrapper neovim ];
+            nativeBuildInputs = [ makeWrapper ];
             installPhase = ''
               mkdir -p "$out/bin"
               cp ${prev.pipe-rename}/bin/renamer $out/bin/renamer
