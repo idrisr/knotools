@@ -23,6 +23,7 @@
           mdtopdf = callPackage ./packages/mdtopdf.nix { };
           newcover = haskell.packages.ghc948.callCabal2nix "" ./newcover { };
           pdftc = callPackage ./packages/pdftc.nix { };
+          pipe-rename = callPackage ./packages/renamer.nix { };
           seder = callPackage ./packages/seder.nix { };
           transcribe = callPackage ./packages/transcribe.nix { };
         };
