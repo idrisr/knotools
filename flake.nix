@@ -16,16 +16,17 @@
         beautysh.enable = true;
       };
 
-      pipe-rename = final: prev: {
-        final.pipe-rename = with prev;
+      pipe-rename = _: prev: {
+        pipe-rename = with prev;
           stdenvNoCC.mkDerivation {
             name = "pipe-rename";
+            pname = "pipe-rename";
             dontUnpack = true;
-            nativeBuildInputs = [ makeWrapper neovim pipe-rename ];
+            nativeBuildInputs = [ makeWrapper neovim ];
             installPhase = ''
               mkdir -p "$out/bin"
-              cp ${pipe-rename}/bin/renamer $out/bin/renamer
-              wrapProgram $out/bin/renamer --add-flags "--editor=neovim --clean"
+              cp ${prev.pipe-rename}/bin/renamer $out/bin/renamer
+              wrapProgram $out/bin/renamer --add-flags "--editor='${prev.neovim}/bin/nvim --clean'"
             '';
           };
       };
