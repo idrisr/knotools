@@ -6,6 +6,12 @@ fi
 
 filename="$1"
 
+# Check if the file has a .srt extension
+if [[ "$filename" != *.srt ]]; then
+    echo "Error: File '$filename' is not a .srt file."
+    exit 1
+fi
+
 # Check if the file exists
 if [ ! -f "$filename" ]; then
     echo "Error: File '$filename' not found."
