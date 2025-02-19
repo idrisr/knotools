@@ -1,0 +1,35 @@
+cabal-version: 3.0
+name:          renameme
+version:       0.1.0.0
+license:       MIT
+build-type:    Simple
+
+common warnings
+  ghc-options:      -Wall
+  default-language: Haskell2010
+
+library
+  import:          warnings
+  exposed-modules:
+  build-depends:   base ^>=4.18.2.1
+  hs-source-dirs:  src
+
+executable exe
+  import:         warnings
+  main-is:        Main.hs
+  build-depends:
+    , base      ^>=4.18.2.1
+    , renameme
+
+  hs-source-dirs: app
+
+test-suite tests
+  import:         warnings
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Main.hs
+  build-depends:
+    , base         ^>=4.18.2.1
+    , renameme
+    , tasty
+    , tasty-hunit

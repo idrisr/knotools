@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     devenv.url = "github:cachix/devenv";
@@ -39,6 +39,7 @@
           newcover = haskell.packages.ghc948.callCabal2nix "" ./newcover { };
           pdftc = callPackage ./packages/pdftc.nix { };
           seder = callPackage ./packages/seder.nix { };
+          srtclean = callPackage ./packages/srtclean.nix { };
           transcribe = callPackage ./packages/transcribe.nix { };
         };
 
