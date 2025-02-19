@@ -39,7 +39,7 @@
           newcover = haskell.packages.ghc948.callCabal2nix "" ./newcover { };
           pdftc = callPackage ./packages/pdftc.nix { };
           seder = callPackage ./packages/seder.nix { };
-          srtclean = callPackage ./packages/srtclean.nix { };
+          srtcpy = callPackage ./packages/srtcpy.nix { };
           transcribe = callPackage ./packages/transcribe.nix { };
         };
 

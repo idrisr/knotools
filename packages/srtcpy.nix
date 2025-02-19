@@ -1,6 +1,5 @@
 { writeShellApplication }:
 writeShellApplication {
   name = "srtcpy";
-  runtimeInputs = [ ];
-  text = builtins.readFile ./srtclean.sh;
+  text = builtins.readFile ./srtcpy.sh;
 }
