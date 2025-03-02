@@ -21,9 +21,6 @@ fi
 # Process the file
 tr -d '\r' < "$filename" | \
     sed -e '/^[[:space:]]*$/d' -e '/^[0-9]/d' | \
-    uniq | \
-    xclip -selection clipboard
-
-echo "Processed file '$filename' and copied output to clipboard."
+    uniq
 
 exit 0
