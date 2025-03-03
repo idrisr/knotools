@@ -33,6 +33,7 @@
 
       outputSet = pkgs:
         with pkgs; rec {
+          audioPreview = callPackage ./packages/audioPreview.nix { };
           awscost = callPackage ./packages/awscost.nix { };
           booknote = callPackage ./packages/booknote.nix { inherit pdftc; };
           mdtopdf = callPackage ./packages/mdtopdf.nix { };
