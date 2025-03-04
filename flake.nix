@@ -42,6 +42,7 @@
           seder = callPackage ./packages/seder.nix { };
           srtcpy = callPackage ./packages/srtcpy.nix { };
           transcribe = callPackage ./packages/transcribe.nix { };
+          vttclean = haskell.packages.ghc965.callCabal2nix "" ./vttclean { };
         };
 
     in {
