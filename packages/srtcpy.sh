@@ -19,8 +19,8 @@ if [ ! -f "$filename" ]; then
 fi
 
 # Process the file
-tr -d '\r' < "$filename" | \
+echo "summarize this --- $(tr -d '\r' < "$filename" | \
     sed -e '/^[[:space:]]*$/d' -e '/^[0-9]/d' | \
-    uniq
+    uniq)"
 
 exit 0
