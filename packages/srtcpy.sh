@@ -18,9 +18,15 @@ if [ ! -f "$filename" ]; then
     exit 1
 fi
 
-# Process the file
-echo "summarize this --- $(tr -d '\r' < "$filename" | \
-    sed -e '/^[[:space:]]*$/d' -e '/^[0-9]/d' | \
-    uniq)"
+instructions="Instructions: Summarize the following article."
+start_tag="[START ARTICLE]"
+end_tag="[END ARTICLE]"
+
+
+output=$(tr -d '\r' < "$filename" | \
+        sed -e '/^[[:space:]]*$/d' -e '/^[0-9]/d' | \
+    uniq)
+
+printf "%s\n\n%s\n%s\n\n%s\n" "${instructions}" "${start_tag}" "${output}" "${end_tag}"
 
 exit 0
