@@ -2,7 +2,7 @@
 
 a collection of shell-script hackery that I use to manage pdfs and notes.
 Mostly these concern ebooks and academic papers. I prefer a visual style
-representation of my books, even as command line troll.
+representation of my books, even as a command line troll.
 
 ## tools
 ### pdftc
