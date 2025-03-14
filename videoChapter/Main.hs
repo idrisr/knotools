@@ -26,7 +26,8 @@ instance Buildable Chapter where
     build (Chapter title mTime) =
         padRightF 10 ' ' (maybe "" f mTime) +| toLower title |+ ""
       where
-        f = formatTime defaultTimeLocale "%02M:%02S"
+        f s | s < 3600 = formatTime defaultTimeLocale "%02M:%02S" s
+        f s = formatTime defaultTimeLocale "%02H:%02M:%02S" s
 
 newtype Menu = Menu {chapters :: [Chapter]} deriving (Show)
 
