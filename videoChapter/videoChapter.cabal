@@ -1,0 +1,28 @@
+cabal-version: 3.0
+name:          videoChapter
+version:       0.1.0.0
+synopsis:      Extract and display video chapter information
+description:
+  extract and display chapter information from video files using mediainfo
+
+license:       MIT
+
+common warnings
+  ghc-options:        -Wall
+  default-language:   Haskell2010
+  default-extensions: NoStarIsType
+
+executable videoChapter
+  import:        warnings
+  main-is:       Main.hs
+  build-depends:
+    , aeson
+    , base                  ^>=4.18.2.1
+    , bytestring
+    , containers
+    , fmt
+    , optparse-applicative
+    , text
+    , time
+
+  ghc-options:   -Wall

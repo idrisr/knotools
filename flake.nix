@@ -38,6 +38,8 @@
           booknote = callPackage ./packages/booknote.nix { inherit pdftc; };
           mdtopdf = callPackage ./packages/mdtopdf.nix { };
           newcover = haskell.packages.ghc948.callCabal2nix "" ./newcover { };
+          videoChapter =
+            haskell.packages.ghc96.callCabal2nix "" ./videoChapter { };
           pdftc = callPackage ./packages/pdftc.nix { };
           seder = callPackage ./packages/seder.nix { };
           srtcpy = callPackage ./packages/srtcpy.nix { };
