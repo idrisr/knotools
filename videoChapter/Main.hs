@@ -20,7 +20,8 @@ newtype Media = Media {track :: [Track]}
 data Audio = Audio deriving (Show)
 data Video = Video deriving (Show)
 data General = General deriving (Show)
-data Chapter = Chapter Text (Maybe NominalDiffTime) deriving (Show)
+data Text_ = Text_ deriving (Show)
+data Chapter = Chapter Text (Maybe NominalDiffTime) deriving (Show, Eq)
 
 instance Buildable Chapter where
     build (Chapter title mTime) =
@@ -31,7 +32,7 @@ instance Buildable Chapter where
 
 newtype Menu = Menu {chapters :: [Chapter]} deriving (Show)
 
-data Track = GeneralT General | MenuT Menu | VideoT Video | AudioT Audio
+data Track = GeneralT General | MenuT Menu | VideoT Video | AudioT Audio | TextT Text_
     deriving (Show)
 
 instance FromJSON Media where
@@ -47,10 +48,12 @@ instance FromJSON Track where
             "General" -> pure $ GeneralT General
             "Video" -> pure $ VideoT Video
             "Audio" -> pure $ AudioT Audio
+            "Text" -> pure $ TextT Text_
             "Menu" -> do
                 e <- v .: "extra"
                 pure . MenuT . Menu $ uncurry toChapter <$> toList e
             _ -> fail $ "no good" <> t
+
 readTimeStamp :: Text -> Maybe NominalDiffTime
 readTimeStamp stamp =
     let xs = split ('_' ==) stamp
