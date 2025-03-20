@@ -25,7 +25,7 @@ data Chapter = Chapter Text (Maybe NominalDiffTime) deriving (Show, Eq)
 
 instance Buildable Media where
     build (Media tracks) =
-        timeF "%02H:%02M:%02S" (fromMaybe 0 parseDuration) +| ("\n\n" :: Text) |+ blockListF menu +| ""
+        formatTime (fromMaybe 0 parseDuration) +| ("\n\n" :: Text) |+ blockListF menu +| ""
       where
         menu = concatMap chapters (mapMaybe toMenu tracks)
         parseDuration :: Maybe NominalDiffTime
@@ -40,10 +40,11 @@ instance Buildable Video where
 
 instance Buildable Chapter where
     build (Chapter title mTime) =
-        padRightF 10 ' ' (maybe "" f mTime) +| toLower title |+ ""
-      where
-        f s | s < 3600 = timeF "%02M:%02S" s
-        f s = timeF "%02H:%02M:%02S" s
+        padRightF 10 ' ' (maybe "" formatTime mTime) +| toLower title |+ ""
+
+formatTime :: NominalDiffTime -> Builder
+formatTime s | s < 3600 = timeF "%02M:%02S" s
+formatTime s = timeF "%02H:%02M:%02S" s
 
 newtype Menu = Menu {chapters :: [Chapter]} deriving (Show)
 
