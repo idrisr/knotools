@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Main where
 
@@ -9,7 +10,6 @@ import Data.Maybe
 import Data.Text (Text, split, toLower, unpack)
 import Data.Text.Lazy ()
 import Data.Time.Clock
-import Data.Time.Format
 import Fmt
 import System.IO (stdin)
 import Text.Read
@@ -18,17 +18,32 @@ newtype Media = Media {track :: [Track]}
     deriving (Show)
 
 data Audio = Audio deriving (Show)
-data Video = Video deriving (Show)
+newtype Video = Video {duration :: String} deriving (Show)
 data General = General deriving (Show)
 data Text_ = Text_ deriving (Show)
 data Chapter = Chapter Text (Maybe NominalDiffTime) deriving (Show, Eq)
+
+instance Buildable Media where
+    build (Media tracks) =
+        timeF "%02H:%02M:%02S" (fromMaybe 0 parseDuration) +| ("\n\n" :: Text) |+ blockListF menu +| ""
+      where
+        menu = concatMap chapters (mapMaybe toMenu tracks)
+        parseDuration :: Maybe NominalDiffTime
+        parseDuration = do
+            let ts = mapMaybe toVideo tracks
+            (Video s) <- listToMaybe ts
+            t <- readMaybe s :: Maybe Double
+            pure . realToFrac $ t
+
+instance Buildable Video where
+    build (Video d) = pretty d
 
 instance Buildable Chapter where
     build (Chapter title mTime) =
         padRightF 10 ' ' (maybe "" f mTime) +| toLower title |+ ""
       where
-        f s | s < 3600 = formatTime defaultTimeLocale "%02M:%02S" s
-        f s = formatTime defaultTimeLocale "%02H:%02M:%02S" s
+        f s | s < 3600 = timeF "%02M:%02S" s
+        f s = timeF "%02H:%02M:%02S" s
 
 newtype Menu = Menu {chapters :: [Chapter]} deriving (Show)
 
@@ -46,7 +61,9 @@ instance FromJSON Track where
         t <- v .: "@type"
         case t of
             "General" -> pure $ GeneralT General
-            "Video" -> pure $ VideoT Video
+            "Video" -> do
+                e <- v .: "Duration"
+                pure $ VideoT $ Video e
             "Audio" -> pure $ AudioT Audio
             "Text" -> pure $ TextT Text_
             "Menu" -> do
@@ -76,10 +93,14 @@ toMenu :: Track -> Maybe Menu
 toMenu (MenuT m) = Just m
 toMenu _ = Nothing
 
+toVideo :: Track -> Maybe Video
+toVideo (VideoT v) = Just v
+toVideo _ = Nothing
+
 main :: IO ()
 main = do
     input <- BL.hGetContents stdin
     case eitherDecode input of
         Left err -> putStrLn $ "Error parsing JSON: " <> err
         Right media -> do
-            fmt . blockListF $ concatMap chapters (mapMaybe toMenu (track media))
+            fmt . prettyLn $ (media :: Media)
