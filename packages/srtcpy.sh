@@ -5,7 +5,7 @@ if [ -z "$1" ]; then
 fi
 
 filename="$1"
-srt_filename="${filename%.*}.srt"  # Remove extension (if any) and append .srt
+srt_filename="${filename%.*}.en.srt"  # Remove extension (if any) and append .srt
 
 # Check if the .srt file exists
 if [ ! -f "$srt_filename" ]; then
