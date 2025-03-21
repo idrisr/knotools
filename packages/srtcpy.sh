@@ -5,16 +5,11 @@ if [ -z "$1" ]; then
 fi
 
 filename="$1"
+srt_filename="${filename%.*}.srt"  # Remove extension (if any) and append .srt
 
-# Check if the file has a .srt extension
-if [[ "$filename" != *.srt ]]; then
-    echo "Error: File '$filename' is not a .srt file."
-    exit 1
-fi
-
-# Check if the file exists
-if [ ! -f "$filename" ]; then
-    echo "Error: File '$filename' not found."
+# Check if the .srt file exists
+if [ ! -f "$srt_filename" ]; then
+    echo "Error: File '$srt_filename' not found."
     exit 1
 fi
 
@@ -22,8 +17,7 @@ instructions="Instructions: Summarize the following article."
 start_tag="[START ARTICLE]"
 end_tag="[END ARTICLE]"
 
-
-output=$(tr -d '\r' < "$filename" | \
+output=$(tr -d '\r' < "$srt_filename" | \
         sed -e '/^[[:space:]]*$/d' -e '/^[0-9]/d' | \
     uniq)
 
