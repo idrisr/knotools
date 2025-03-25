@@ -5,6 +5,7 @@ module Main where
 
 import Data.Aeson
 import qualified Data.ByteString.Lazy as BL
+import Data.List
 import Data.Map hiding (mapMaybe, split)
 import Data.Maybe
 import Data.Text (Text, split, toLower, unpack)
@@ -21,13 +22,14 @@ data Audio = Audio deriving (Show)
 newtype Video = Video {duration :: String} deriving (Show)
 data General = General deriving (Show)
 data Text_ = Text_ deriving (Show)
-data Chapter = Chapter Text (Maybe NominalDiffTime) deriving (Show, Eq)
+data Chapter = Chapter Text (Maybe NominalDiffTime)
+    deriving (Show, Eq)
 
 instance Buildable Media where
     build (Media tracks) =
         formatTime (fromMaybe 0 parseDuration) +| ("\n\n" :: Text) |+ blockListF menu +| ""
       where
-        menu = concatMap chapters (mapMaybe toMenu tracks)
+        menu = nub $ concatMap chapters (mapMaybe toMenu tracks)
         parseDuration :: Maybe NominalDiffTime
         parseDuration = do
             let ts = mapMaybe toVideo tracks
